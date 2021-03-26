@@ -54,7 +54,7 @@ class ImController extends Controller
                         $gateway->sendToUid($token->id,$data);
                     }
                 }
-                if($data['to']!=$user->id){//给对方发
+                if($data['to']['id']!=$user->id){//给对方发
                     $otherUser = User::where('id', $data['to'])->firstOrFail();
                     $otherTokens = $otherUser->tokens()->where('last_used_at', now()->subDays(2))->get();//给对方发
                     foreach($otherTokens as $otherToken){
