@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ImRequest;
 use Agent;
 use App\Models\User;
+use App\Models\Group;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\GroupResource;
 
 class ImController extends Controller
 {
@@ -45,16 +47,21 @@ class ImController extends Controller
         $data['from'] = (new UserResource($user));
         $data['from_id'] = $user->id;
 
-        $toUser = User::findOrFail($data['to']['id']);
-        $data['to'] = (new UserResource($toUser));
-        $data['to_id'] = $toUser->id;
         $data['sended_at'] = now()->format('Y-m-d H:i:s');
 
         switch($data['type']){
             case 'group':
+
+                $toGroup = Group::findOrFail($data['to']['id']);
+                $data['to'] = (new GroupResource($toGroup));
+                $data['to_id'] = $toGroup->id;
                 $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
                 break;
             case 'friend':
+
+                $toUser = User::findOrFail($data['to']['id']);
+                $data['to'] = (new UserResource($toUser));
+                $data['to_id'] = $toUser->id;
                 $tokens = $user->tokens()->where('last_used_at','>',now()->subDays(2))->get();//给自己其他设备发
                 foreach($tokens as $token){
                     if($token->id!=$currentAccessToken->id){
