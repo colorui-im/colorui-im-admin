@@ -43,7 +43,7 @@ class User extends Authenticatable
     ];
 
 
-    public function divideGroups()
+    public function devide_groups()
     {
         return $this->hasMany(DivideGroup::class);
     }
