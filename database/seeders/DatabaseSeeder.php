@@ -17,27 +17,31 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        \App\Models\User::factory(100)->create();
-        \App\Models\Group::factory(10)->create();
-        \App\Models\DivideGroup::factory(10)->create();
+       $users =  \App\Models\User::factory(10)->create();
+        $groups = \App\Models\Group::factory(10)->create();
+        $divideGroups = \App\Models\DivideGroup::factory(10)->create();
 
-        $divideGroups = \App\Models\DivideGroup::get();
-        $groups= \App\Models\Group::get();
-        User::chunk(10,function($item)use($divideGroups,$groups){
-            $divideGroups->each(function($divideGroup)use($item){
-                $divideGroup->users()->sync($item->pluck('id')->toArray());
-                foreach($item as $v){
-                    $v->divideGroups()->save($divideGroup);
-                }
-            });
 
-            $groups->each(function($group)use($item){
-                $group->users()->sync($item->pluck('id')->toArray());
-                foreach($item as $v1){
-                    $v1->groups()->save($group);
+        foreach ($users as $k=>$user){
+
+            foreach ($groups as $k1=>$group){
+                if($k==$k1){
+                    $user->groups()->save($group);
+                    $group->users()->sync($users->pluck('id')->toArray());
+                    break;
                 }
-            });
-        });
+            }
+
+            foreach ($divideGroups as $k2=>$divideGroup){
+                if($k==$k2){
+                    $user->divideGroups()->save($group);
+                    $divideGroup->users()->sync($users->pluck('id')->toArray());
+                    break;
+                }
+            }
+
+
+       
 
     }
 }
