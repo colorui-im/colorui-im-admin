@@ -19,7 +19,14 @@ class ImController extends Controller
         // return ['code'=>0,'msg'=>'ok','data'=>['token'=>$user->currentAccessToken()->tokenable]];
 
         $currentAccessToken = $user->currentAccessToken();
-        app('gateway')->bindUid($request->client_id,$currentAccessToken->id);
+        $gateway = app('gateway');
+        $gateway->bindUid($request->client_id, $currentAccessToken->id);
+
+        $groups = $user->groups()->get();
+
+        foreach ($groups as $group){
+            $gateway->joinGroup($request->client_id,$group->id);
+        }
 
         return response()->json(['code'=>0,'msg'=>'','data'=>[]]);
     }
