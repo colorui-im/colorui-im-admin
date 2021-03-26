@@ -17,6 +17,6 @@ class DivideGroup extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'divide_group_users', 'group_id', 'user_id');
+        return $this->belongsToMany(User::class, 'divide_group_users', 'devide_group_id', 'user_id');
     }
 }
