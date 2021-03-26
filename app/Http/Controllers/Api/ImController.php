@@ -45,7 +45,7 @@ class ImController extends Controller
 
         switch($data['type']){
             case 'group':
-                $gateway->sendToGroup($data['to'],$data,$currentClientId);
+                $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
                 break;
             case 'friend':
                 $tokens = $user->tokens()->where('last_used_at',now()->subDays(2))->get();//给自己其他设备发
@@ -55,7 +55,7 @@ class ImController extends Controller
                     }
                 }
                 if($data['to']['id']!=$user->id){//给对方发
-                    $otherUser = User::where('id', $data['to'])->firstOrFail();
+                    $otherUser = User::where('id', $data['to']['id'])->firstOrFail();
                     $otherTokens = $otherUser->tokens()->where('last_used_at', now()->subDays(2))->get();//给对方发
                     foreach($otherTokens as $otherToken){
                         $gateway->sendToUid($otherToken->id,$data);
