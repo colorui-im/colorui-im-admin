@@ -26,9 +26,16 @@ class DatabaseSeeder extends Seeder
         User::chunk(10,function($item)use($divideGroups,$groups){
             $divideGroups->each(function($divideGroup)use($item){
                 $divideGroup->users()->sync($item->pluck('id')->toArray());
+                foreach($item as $v){
+                    $v->divideGroups()->save($divideGroup);
+                }
             });
+
             $groups->each(function($group)use($item){
                 $group->users()->sync($item->pluck('id')->toArray());
+                foreach($item as $v1){
+                    $v1->groups()->save($group);
+                }
             });
         });
 
