@@ -22,8 +22,8 @@ class UserResource extends JsonResource
             'token_length'=>$this->whenLoaded('tokens',function(){
                 return $this->tokens->count();
             }),
-            'devide_group'=>[],
-            'devide_groups' =>DivideGroupResource::collection($this->whenLoaded('devideGroups')),
+
+            'divideGroups' =>DivideGroupResource::collection($this->whenLoaded('divideGroups')),
             'groups' =>GroupResource::collection($this->whenLoaded('groups')),
         ];
         return parent::toArray($request);
