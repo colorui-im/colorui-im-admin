@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
             foreach ($divideGroups as $k2=>$divideGroup) {
                 if ($k==$k2) {
-                    $user->divideGroups()->save($group);
+                    $user->divideGroups()->save($divideGroup);
                     $divideGroup->users()->sync($users->pluck('id')->toArray());
                     break;
                 }
