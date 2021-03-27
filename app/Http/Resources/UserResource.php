@@ -25,6 +25,7 @@ class UserResource extends JsonResource
 
             'divide_groups' =>DivideGroupResource::collection($this->whenLoaded('divideGroups')),
             'groups' =>GroupResource::collection($this->whenLoaded('groups')),
+            'friend_groups' =>GroupResource::collection($this->whenLoaded('friendGroups')),
         ];
         return parent::toArray($request);
     }

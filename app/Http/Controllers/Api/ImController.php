@@ -25,9 +25,14 @@ class ImController extends Controller
         $gateway->bindUid($request->client_id, $currentAccessToken->id);
 
         $groups = $user->groups()->get();
+        $friendGroups = $user->friend_groups()->get();
 
-        foreach ($groups as $group){
+        foreach ($groups as $group){//大群
             $gateway->joinGroup($request->client_id,$group->id);
+        }
+
+        foreach ($friendGroups as $friendGroup){//和好友的群,只有两人
+            $gateway->joinGroup($request->client_id,$friendGroup->id);
         }
 
         return response()->json(['code'=>0,'msg'=>'','data'=>[]]);
@@ -49,9 +54,12 @@ class ImController extends Controller
 
         $data['sended_at'] = now()->format('Y-m-d H:i:s');
 
+
+
         switch($data['type']){
             case 'group':
 
+                unset($data['client_id']);
                 $toGroup = Group::findOrFail($data['to']['id']);
                 $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
@@ -59,22 +67,22 @@ class ImController extends Controller
                 break;
             case 'friend':
 
-                $toUser = User::findOrFail($data['to']['id']);
-                $data['to'] = (new UserResource($toUser));
-                $data['to_id'] = $toUser->id;
-                $tokens = $user->tokens()->where('last_used_at','>',now()->subDays(2))->get();//给自己其他设备发
-                foreach($tokens as $token){
-                    if($token->id!=$currentAccessToken->id){
-                        $gateway->sendToUid($token->id,$data);
-                    }
-                }
-                if($data['to']['id']!=$user->id){//给对方发
-                    $otherUser = User::where('id', $data['to']['id'])->firstOrFail();
-                    $otherTokens = $otherUser->tokens()->where('last_used_at','>', now()->subDays(2))->get();//给对方发
-                    foreach($otherTokens as $otherToken){
-                        $gateway->sendToUid($otherToken->id,$data);
-                    }
-                }
+                // $toUser = User::findOrFail($data['to']['id']);
+                // $data['to'] = (new UserResource($toUser));
+                // $data['to_id'] = $toUser->id;
+                // $tokens = $user->tokens()->where('last_used_at','>',now()->subDays(2))->get();//给自己其他设备发
+                // foreach($tokens as $token){
+                //     if($token->id!=$currentAccessToken->id){
+                //         $gateway->sendToUid($token->id,$data);
+                //     }
+                // }
+                // if($data['to']['id']!=$user->id){//给对方发
+                //     $otherUser = User::where('id', $data['to']['id'])->firstOrFail();
+                //     $otherTokens = $otherUser->tokens()->where('last_used_at','>', now()->subDays(2))->get();//给对方发
+                //     foreach($otherTokens as $otherToken){
+                //         $gateway->sendToUid($otherToken->id,$data);
+                //     }
+                // }
                 break;
         }
         return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);

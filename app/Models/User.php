@@ -50,13 +50,19 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->belongsToMany(Group::class,'group_users','user_id','group_id');
+        return $this->belongsToMany(Group::class,'group_users','user_id','group_id')->where('type',1);
 
     }
     public function createGroups()
     {
         return $this->hasMany(Group::class);
 
+    }
+
+    //好友小群 只有两人
+    public function friendGroups()
+    {
+        return $this->belongsToMany(Group::class,'group_users','user_id','group_id')->where('type',0);
     }
    
 }
