@@ -61,7 +61,7 @@ class ImController extends Controller
         $data = $request->validationData();
 
 
-        // $data['from'] = (new UserResource($user));
+        $data['from'] = (new UserResource($user));
         $data['from_id'] = $user->id;
 
         $data['sended_at'] = now()->format('Y-m-d H:i:s');
@@ -72,11 +72,11 @@ class ImController extends Controller
             case 'group':
                 unset($data['client_id']);
                 $toGroup = Group::findOrFail($data['to']['id']);
-                // $data['to'] = (new GroupResource($toGroup));
+                $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
                 $data['ssss']=1;
                 \Log::info('group_id:'.$data['to']['id']);
-                app('gateway')->sendToGroup($data['to']['id'],['daasds'],$currentClientId);
+                app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
                 // $gateway->sendToUid($currentAccessToken->id,$data);
                 break;
             case 'friend':
@@ -87,7 +87,7 @@ class ImController extends Controller
                 $data['ssss']=2;
                 \Log::info('group_id:'.$data['to']['id']);
 
-                app('gateway')->sendToGroup($data['to']['id'],$data,$currentClientId);
+                app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
                 break;
 
                 // $toUser = User::findOrFail($data['to']['id']);
