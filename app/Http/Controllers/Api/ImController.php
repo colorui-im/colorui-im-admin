@@ -26,11 +26,19 @@ class ImController extends Controller
 
         $groups = $user->groups()->get();
         $friendGroups = $user->friendGroups()->get();
-
+        \Log::info('start Group',[
+            
+            ]);
         foreach ($groups as $group){//大群
+            \Log::info('group',[
+                'user_id'=>$user->id,
+                'group_id'=>$group->id,
+            ]);
             $gateway->joinGroup($request->client_id,$group->id);
         }
-
+        \Log::info('start friendGroup',[
+            
+        ]);
         foreach ($friendGroups as $friendGroup){//和好友的群,只有两人
             \Log::info('friendGroup',[
                 'user_id'=>$user->id,
