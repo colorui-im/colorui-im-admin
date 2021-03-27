@@ -36,6 +36,8 @@ class  GatewayService
 
     public function sendToGroup($groupId,$message,$clientId = null)
     {
+        
+        \Log::info('groupId:'.$groupId, $message);
         //group_id/[]/user_id(当前用户不推送)
         Gateway::sendToGroup($groupId, json_encode($message),$clientId);
     }
