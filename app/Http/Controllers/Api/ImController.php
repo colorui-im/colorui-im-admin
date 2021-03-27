@@ -74,7 +74,6 @@ class ImController extends Controller
                 $toGroup = Group::findOrFail($data['to']['id']);
                 $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
-                $data['ssss']=1;
                 \Log::info('group_id:'.$data['to']['id']);
                 app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
                 // $gateway->sendToUid($currentAccessToken->id,$data);
@@ -84,7 +83,6 @@ class ImController extends Controller
                 $toGroup = Group::findOrFail($data['to']['id']);
                 // $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
-                $data['ssss']=2;
                 \Log::info('group_id:'.$data['to']['id']);
 
                 app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
