@@ -58,7 +58,6 @@ class ImController extends Controller
 
         switch($data['type']){
             case 'group':
-
                 unset($data['client_id']);
                 $toGroup = Group::findOrFail($data['to']['id']);
                 $data['to'] = (new GroupResource($toGroup));
@@ -66,6 +65,12 @@ class ImController extends Controller
                 $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
                 break;
             case 'friend':
+                unset($data['client_id']);
+                $toGroup = Group::findOrFail($data['to']['id']);
+                // $data['to'] = (new GroupResource($toGroup));
+                $data['to_id'] = $toGroup->id;
+                $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
+                break;
 
                 // $toUser = User::findOrFail($data['to']['id']);
                 // $data['to'] = (new UserResource($toUser));
