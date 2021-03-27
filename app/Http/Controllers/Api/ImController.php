@@ -32,6 +32,10 @@ class ImController extends Controller
         }
 
         foreach ($friendGroups as $friendGroup){//和好友的群,只有两人
+            \Log::info('friendGroup',[
+                'user_id'=>$user->id,
+                'group_id'=>$friendGroup->id,
+            ]);
             $gateway->joinGroup($request->client_id,$friendGroup->id);
         }
 
