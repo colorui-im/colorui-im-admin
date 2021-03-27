@@ -75,6 +75,7 @@ class ImController extends Controller
                 $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
                 $data['ssss']=1;
+                \Log::info('group_id:'.$data['to']['id']);
                 $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
                 // $gateway->sendToUid($currentAccessToken->id,$data);
                 break;
@@ -84,6 +85,8 @@ class ImController extends Controller
                 // $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
                 $data['ssss']=2;
+                \Log::info('group_id:'.$data['to']['id']);
+
                 // $gateway->sendToUid($currentAccessToken->id,$data);
                 $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
                 break;
