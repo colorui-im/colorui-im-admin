@@ -25,7 +25,7 @@ class ImController extends Controller
         $gateway->bindUid($request->client_id, $currentAccessToken->id);
 
         $groups = $user->groups()->get();
-        $friendGroups = $user->friend_groups()->get();
+        $friendGroups = $user->friendGroups()->get();
 
         foreach ($groups as $group){//大群
             $gateway->joinGroup($request->client_id,$group->id);
