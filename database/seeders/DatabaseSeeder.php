@@ -35,9 +35,10 @@ class DatabaseSeeder extends Seeder
                 if ($k==$k2) {
                     $user->divideGroups()->save($divideGroup);//我的分组
                     $divideGroup->users()->sync($users->pluck('id')->toArray());//我的分组下面的用户
-                    $a =[];
-                    $a[]=$user->id;
+                   
                     foreach ($users as $friiendUser){//给我的好友建个小群,就可以像在“群里”好友聊天啦
+                        $a =[];
+                        $a[]=$user->id;
                         $a[]=$friiendUser->id;
                         sort($a);
                         $user_to_user = implode('-',$a);
