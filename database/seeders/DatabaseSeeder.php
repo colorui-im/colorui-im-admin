@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
                         $group = Group::where('user_to_user', $user_to_user)->where('type', 0)->first();
                         if(!$group){
                             $group = \App\Models\Group::factory()->create();
-                            $group->user_to_user->$user_to_user;
+                            $group->user_to_user = $user_to_user;
                             $group->type = 0;
                             $group->save();
                         }
