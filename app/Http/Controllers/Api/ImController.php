@@ -62,6 +62,7 @@ class ImController extends Controller
                 $toGroup = Group::findOrFail($data['to']['id']);
                 $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
+                $data['ssss']=1;
                 $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
                 break;
             case 'friend':
@@ -69,6 +70,8 @@ class ImController extends Controller
                 $toGroup = Group::findOrFail($data['to']['id']);
                 // $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
+                $data['ssss']=2;
+
                 $gateway->sendToGroup($data['to']['id'],$data,$currentClientId);
                 break;
 
@@ -88,7 +91,7 @@ class ImController extends Controller
                 //         $gateway->sendToUid($otherToken->id,$data);
                 //     }
                 // }
-                break;
+
         }
         return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);
     }
