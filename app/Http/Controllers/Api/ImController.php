@@ -76,7 +76,7 @@ class ImController extends Controller
                 $data['to_id'] = $toGroup->id;
                 $data['ssss']=1;
                 \Log::info('group_id:'.$data['to']['id']);
-                app('gateway')->sendToGroup($data['to']['id'],$data,$currentClientId);
+                app('gateway')->sendToGroup($data['to']['id'],['daasds'],$currentClientId);
                 // $gateway->sendToUid($currentAccessToken->id,$data);
                 break;
             case 'friend':
