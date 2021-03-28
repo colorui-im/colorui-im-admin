@@ -34,7 +34,7 @@ class UploadRequest extends FormRequest
                 break;
             case 'audio':
                 $rules = [
-                    'audio' => ['required|string'],
+                    'audio' => ['required','string'],
                 ];
                 break;
         }
