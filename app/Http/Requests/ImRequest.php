@@ -36,7 +36,6 @@ class ImRequest extends FormRequest
                 $rules = [
                     'type' => ['required','in:friend,group'],
                     'message_type'=> ['required','in:text,image'],
-
                     'to' => ['required'],
                     'data' => ['required']
                 ];
