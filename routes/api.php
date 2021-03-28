@@ -38,6 +38,11 @@ Route::group(['middleware'=>['auth:sanctum']],function () {
         Route::post('bindUid', 'Api\ImController@bindUid')->name('bindUid');
         Route::post('send', 'Api\ImController@send')->name('send');
     });
+    Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
+        Route::post('image', 'Api\UploadController@image')->name('image');
+        Route::get('file', 'Api\UploadController@file')->name('file');
+    });
+
 });
 
 
