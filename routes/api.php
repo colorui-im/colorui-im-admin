@@ -40,7 +40,8 @@ Route::group(['middleware'=>['auth:sanctum']],function () {
     });
     Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
         Route::post('image', 'Api\UploadController@image')->name('image');
-        Route::get('file', 'Api\UploadController@file')->name('file');
+        Route::post('file', 'Api\UploadController@file')->name('file');
+        Route::post('audio', 'Api\UploadController@audio')->name('audio');
     });
 
 });

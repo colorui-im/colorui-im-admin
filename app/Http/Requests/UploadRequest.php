@@ -32,6 +32,11 @@ class UploadRequest extends FormRequest
                     'file' => ['required:file'],
                 ];
                 break;
+            case 'audio':
+                $rules = [
+                    'audio' => ['required'],
+                ];
+                break;
         }
         return $rules;
     }
