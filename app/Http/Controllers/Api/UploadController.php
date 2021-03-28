@@ -34,7 +34,7 @@ class UploadController extends Controller
         $data = base64_decode($data);
         $uuid = Uuid::uuid4();
         $filename = $uuid.'.mp3';
-        \Storage::disk('public')->put('chat/audios', $filename);
+        \Storage::disk('public')->put('chat/audios/'.$filename);
         $path = 'chat/audios/'.$filename;
 
         return json_encode(['code' => 0, 'msg' => '', 'data' => ['src' => asset('storage/' . $path), 'name' => '']]);
