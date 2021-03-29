@@ -7,7 +7,7 @@ class  GatewayService
 
     public function __construct()
     {
-        Gateway::$registerAddress = '172.17.0.1:1239';
+        Gateway::$registerAddress = '172.17.0.1:1240';
     }
 
     
