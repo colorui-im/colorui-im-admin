@@ -108,4 +108,41 @@ class ImController extends Controller
         }
         return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);
     }
+
+    public function joinGroup(ImRequest $request)
+    {
+
+        $group= Group::findOrFail($request->group_id);
+
+        $joinUserIds = $request->join_user_ids;
+        //todo 限制拉自己的好友
+
+        $state = 0; //状态为1 前端需要重新跳到新建的群
+
+        if($group->type==1){//这是个群聊群，直接加入
+
+            $group->users()->syncWithoutDetaching($joinUserIds);
+
+        }elseif($group->type==0){//这是"好友"的群，需重新新建个群，把好友和新的一起加入进去
+
+            $newGroup = Group::factory()->create();
+            $newGroup->type = 1;
+            $newGroup->save();
+
+            $userIds = $group->users()->get(['id'])->pluck('id')->toArray();
+
+            $userIds = array_merge($userIds, $joinUserIds);
+            $newGroup->users()->sync($userIds);
+            $state = 1;
+
+            $group = $newGroup;
+        }
+
+        //todo 给加群的用户发送一条系统通知，让对方重新绑定下wbsocket，可以接收信息
+
+
+        //前端在请求下用户信息接口，刷新下最新数据
+        return response()->json(['code'=>0,'msg'=>'','data'=>['state'=>1,'group'=>new GroupResource($group)]]);
+
+    }
 }

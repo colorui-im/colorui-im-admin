@@ -40,6 +40,13 @@ class ImRequest extends FormRequest
                     'data' => ['required']
                 ];
                 break;
+            case 'joinGroup':
+
+                $rules = [
+                    'group_id' => ['required'],
+                    'join_user_ids' => ['required','array']
+                ];
+                break;
 
         }
         return $rules;
