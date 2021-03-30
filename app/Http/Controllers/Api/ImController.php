@@ -148,9 +148,9 @@ class ImController extends Controller
         }])->get();
         foreach ($users as $user){
             foreach ($user->tokens as $token){
-                if($currentAccessToken->id!=$token->id){
+                // if($currentAccessToken->id!=$token->id){//都需要重新绑定
                     $gateway->sendToUid($token->id,['type'=>'system_join_group']);
-                }
+                // }
             }
         }
 
