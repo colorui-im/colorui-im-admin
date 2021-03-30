@@ -145,11 +145,11 @@ class ImController extends Controller
         $currentAccessToken = $request->user()->currentAccessToken();
         $users = $group->users()->with(['tokens'=>function($query){
             $query->where('last_used_at', '>', now()->subMinutes(60*24));//一天之内的才推送
-        }])->get(['id']);
+        }])->get();
         foreach ($users as $user){
             foreach ($user->tokens as $token){
                 if($currentAccessToken->id!=$token->id){
-                    $gateway->sendToUid($token->id,[]);
+                    $gateway->sendToUid($token->id,['type'=>'system_join_group']);
                 }
             }
         }
