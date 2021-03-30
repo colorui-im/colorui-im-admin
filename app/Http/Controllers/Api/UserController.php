@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        $user->load('divideGroups.users.tokens','groups.users.tokens','tokens','friendGroups');
+        $user->load('divideGroups.users.tokens','groups.users.tokens','tokens','friendGroups.users');
 
         $user = new UserResource($user);
 
