@@ -140,9 +140,23 @@ class ImController extends Controller
 
         //todo 给加群的用户发送一条系统通知，让对方重新绑定下wbsocket，可以接收信息
 
+        //可放在事件中
+        $gateway = app('gateway');
+        $currentAccessToken = $request->user()->currentAccessToken();
+        $users = $group->users()->with(['tokens'=>function($query){
+            $query->where('last_used_at', '>', now()->subMinutes(60*24));//一天之内的才推送
+        }])->get(['id']);
+        foreach ($users as $user){
+            foreach ($user->tokens as $token){
+                if($currentAccessToken->id!=$token->id){
+                    $gateway->sendToUid($token->id,[]);
+                }
+            }
+        }
 
-        //前端在请求下用户信息接口，刷新下最新数据
-        return response()->json(['code'=>0,'msg'=>'','data'=>['state'=>1,'group'=>new GroupResource($group)]]);
+
+        
+        return response()->json(['code'=>0,'msg'=>'','data'=>['state'=>$state ,'group'=>new GroupResource($group)]]);
 
     }
 }
