@@ -18,8 +18,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if(!Agent::device()){
-            return response()->json(['code'=>1,'msg'=>'您是一个机器人']);
+            // return response()->json(['code'=>1,'msg'=>'您是一个机器人']);
         }
+
+        $device_name =  Agent::device()?:'apk';
 
         $request->validate([
             'email' => 'required|email',
@@ -35,7 +37,7 @@ class LoginController extends Controller
             ]);
         }
     
-        return response()->json(['code'=>0,'msg'=>'登录成功','data'=>['token'=>$user->createToken(Agent::device())->plainTextToken]]);
+        return response()->json(['code'=>0,'msg'=>'登录成功','data'=>['token'=>$user->createToken($device_name)->plainTextToken]]);
     }
     
 }
