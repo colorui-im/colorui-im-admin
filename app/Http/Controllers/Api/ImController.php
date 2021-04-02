@@ -66,8 +66,8 @@ class ImController extends Controller
                 $gateway->joinGroup($request->client_id,$id);//绑定到10个群里，相当于和10个用户聊天
             }
 
-        }else{
-            $gateway->joinGroup($request->client_id,1);//默认绑定到大群里
+        }else{//顾客
+            $gateway->joinGroup($request->client_id,$request->to_id??1);//默认绑定到大群里
 
         }
 
