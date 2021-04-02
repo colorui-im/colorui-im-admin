@@ -31,7 +31,21 @@ class ImRequest extends FormRequest
                     'client_id' => ['required'],
                 ];
                 break;
+            case 'bindGroupUid':
+                $rules = [
+                    'client_id' => ['required'],
+                ];
+                break;
             case 'send':
+                //{type/from/to/data/self}
+                $rules = [
+                    'type' => ['required','in:friend,group'],
+                    'message_type'=> ['required','in:text,image,audio'],
+                    'to' => ['required'],
+                    'data' => ['required']
+                ];
+                break;
+            case 'groupSend':
                 //{type/from/to/data/self}
                 $rules = [
                     'type' => ['required','in:friend,group'],

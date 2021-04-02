@@ -50,6 +50,24 @@ class ImController extends Controller
         return response()->json(['code'=>0,'msg'=>'','data'=>[]]);
     }
 
+    //不用登录就可在大群里聊
+    public function bindGroupUid(ImRequest $request)
+    {
+
+
+        // dd($user);
+        // return ['code'=>0,'msg'=>'ok','data'=>['token'=>$user->currentAccessToken()->tokenable]];
+
+
+        $gateway = app('gateway');
+
+        $gateway->joinGroup($request->client_id,1);//默认绑定到大群里
+
+
+        return response()->json(['code'=>0,'msg'=>'','data'=>[]]);
+    }
+
+
     public function send(ImRequest $request)
     {
         $gateway = app('gateway');
@@ -76,34 +94,48 @@ class ImController extends Controller
                 $data['to_id'] = $toGroup->id;
                 \Log::info('group_id:'.$data['to']['id']);
                 app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
-                // $gateway->sendToUid($currentAccessToken->id,$data);
+
                 break;
             case 'friend':
                 unset($data['client_id']);
                 $toGroup = Group::findOrFail($data['to']['id']);
-                // $data['to'] = (new GroupResource($toGroup));
                 $data['to_id'] = $toGroup->id;
                 \Log::info('group_id:'.$data['to']['id']);
 
                 app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
                 break;
 
-                // $toUser = User::findOrFail($data['to']['id']);
-                // $data['to'] = (new UserResource($toUser));
-                // $data['to_id'] = $toUser->id;
-                // $tokens = $user->tokens()->where('last_used_at','>',now()->subDays(2))->get();//给自己其他设备发
-                // foreach($tokens as $token){
-                //     if($token->id!=$currentAccessToken->id){
-                //         $gateway->sendToUid($token->id,$data);
-                //     }
-                // }
-                // if($data['to']['id']!=$user->id){//给对方发
-                //     $otherUser = User::where('id', $data['to']['id'])->firstOrFail();
-                //     $otherTokens = $otherUser->tokens()->where('last_used_at','>', now()->subDays(2))->get();//给对方发
-                //     foreach($otherTokens as $otherToken){
-                //         $gateway->sendToUid($otherToken->id,$data);
-                //     }
-                // }
+
+
+        }
+        return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);
+    }
+
+    //不用登录就能发送信息
+    public function groupSend(ImRequest $request)
+    {
+
+
+        $data = $request->validationData();
+
+
+        $data['sended_at'] = now()->format('Y-m-d H:i:s');
+
+        $currentClientId = $data['client_id'];
+
+        switch($data['type']){
+            case 'group':
+                unset($data['client_id']);
+                
+                \Log::info('group_id:'.$data['to']['id']);
+                app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
+                // $gateway->sendToUid($currentAccessToken->id,$data);
+                break;
+            case 'friend':
+                unset($data['client_id']);
+                app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
+                break;
+
 
         }
         return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);

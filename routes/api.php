@@ -47,5 +47,14 @@ Route::group(['middleware'=>['auth:sanctum']],function () {
     });
 
 });
+Route::group(['middleware'=>[]],function () { 
+   
+    Route::group(['prefix'=>'im','as'=>'im.','middleware'=>[]],function () {
+        Route::post('bindGroupUid', 'Api\ImController@bindGroupUid')->name('bindGroupUid');
+        Route::post('groupSend', 'Api\ImController@groupSend')->name('groupSend');
+    });
+   
+
+});
 
 
