@@ -61,7 +61,16 @@ class ImController extends Controller
 
         $gateway = app('gateway');
 
-        $gateway->joinGroup($request->client_id,1);//默认绑定到大群里
+        if(str_contains($request->url,'service')){//客服
+            foreach (range(1,10) as $id){
+                $gateway->joinGroup($request->client_id,$id);//绑定到10个群里，相当于和10个用户聊天
+            }
+
+        }else{
+            $gateway->joinGroup($request->client_id,1);//默认绑定到大群里
+
+        }
+
 
 
         return response()->json(['code'=>0,'msg'=>'','data'=>[]]);
