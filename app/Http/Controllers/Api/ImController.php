@@ -61,7 +61,7 @@ class ImController extends Controller
 
         $gateway = app('gateway');
 
-        \Log::info('url',$request->getRequestUri());
+        \Log::info('url:'.$request->getRequestUri());
         if(str_contains($request->getRequestUri(),'service')){//客服
             foreach (range(1,10) as $id){
                 $gateway->joinGroup($request->client_id,$id);//绑定到10个群里，相当于和10个用户聊天
