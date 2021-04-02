@@ -39,12 +39,12 @@ Route::group(['middleware'=>['auth:sanctum']],function () {
         Route::post('send', 'Api\ImController@send')->name('send');
         Route::post('joinGroup', 'Api\ImController@joinGroup')->name('joinGroup');
     });
-    Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
-        Route::post('image', 'Api\UploadController@image')->name('image');
-        Route::post('file', 'Api\UploadController@file')->name('file');
-        Route::post('audio', 'Api\UploadController@audio')->name('audio');//base64
-        Route::post('fileAudio', 'Api\UploadController@fileAudio')->name('fileAudio');//文件
-    });
+    // Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
+    //     Route::post('image', 'Api\UploadController@image')->name('image');
+    //     Route::post('file', 'Api\UploadController@file')->name('file');
+    //     Route::post('audio', 'Api\UploadController@audio')->name('audio');//base64
+    //     Route::post('fileAudio', 'Api\UploadController@fileAudio')->name('fileAudio');//文件
+    // });
 
 });
 Route::group(['middleware'=>[]],function () { 
@@ -52,6 +52,12 @@ Route::group(['middleware'=>[]],function () {
     Route::group(['prefix'=>'im','as'=>'im.','middleware'=>[]],function () {
         Route::post('bindGroupUid', 'Api\ImController@bindGroupUid')->name('bindGroupUid');
         Route::post('groupSend', 'Api\ImController@groupSend')->name('groupSend');
+    });
+    Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
+        Route::post('image', 'Api\UploadController@image')->name('image');
+        Route::post('file', 'Api\UploadController@file')->name('file');
+        Route::post('audio', 'Api\UploadController@audio')->name('audio');//base64
+        Route::post('fileAudio', 'Api\UploadController@fileAudio')->name('fileAudio');//文件
     });
    
 
