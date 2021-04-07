@@ -103,20 +103,20 @@ class ImController extends Controller
                 $data['to_id'] = $toGroup->id;
                 \Log::info('group_id:'.$data['to']['id']);
                 app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
-
                 break;
             case 'friend':
                 unset($data['client_id']);
                 $toGroup = Group::findOrFail($data['to']['id']);
                 $data['to_id'] = $toGroup->id;
                 \Log::info('group_id:'.$data['to']['id']);
-
                 app('gateway')->sendToGroup((int)$data['to']['id'],$data,$currentClientId);
                 break;
-
-
-
         }
+
+        if(config('im.save_message')){//是否支持保存数据到数据库，默认true
+            event(new \App\Events\ImSend($data));
+        }
+
         return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);
     }
 

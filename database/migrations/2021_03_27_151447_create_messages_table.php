@@ -14,6 +14,7 @@ class CreateMessagesTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
+            //暂无用到
             $table->id();
             $table->unsignedBigInteger('from_id')->nullable();
             $table->unsignedBigInteger('to_id')->nullable()->comment('即群的id');
@@ -22,6 +23,7 @@ class CreateMessagesTable extends Migration
             $table->string('type')->nullable()->comment('留作备用');
             $table->string('message_type')->nullable()->comment('消息类型');
             $table->text('data')->nullable()->comment('消息内容是一个json');
+            $table->timestamp('sended_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
