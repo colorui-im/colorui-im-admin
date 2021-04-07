@@ -41,7 +41,6 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            \Fruitcake\Cors\HandleCors::class,
 
             // TestMiddleware::class,
             EnsureFrontendRequestsAreStateful::class,
