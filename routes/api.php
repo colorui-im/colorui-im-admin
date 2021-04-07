@@ -56,8 +56,10 @@ Route::group(['middleware'=>[]],function () {
     Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
         Route::post('image', 'Api\UploadController@image')->name('image');
         Route::post('file', 'Api\UploadController@file')->name('file');
+        Route::post('video', 'Api\UploadController@video')->name('video');
         Route::post('audio', 'Api\UploadController@audio')->name('audio');//base64
         Route::post('fileAudio', 'Api\UploadController@fileAudio')->name('fileAudio');//文件
+
     });
    
 

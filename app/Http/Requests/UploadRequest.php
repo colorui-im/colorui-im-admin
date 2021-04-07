@@ -28,6 +28,7 @@ class UploadRequest extends FormRequest
         switch ($method) {
             case 'image':
             case 'file':
+            case 'video':
             case 'fileAudio':
                 $rules = [
                     'file' => ['required:file'],

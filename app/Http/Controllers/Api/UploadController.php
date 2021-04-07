@@ -26,6 +26,14 @@ class UploadController extends Controller
         return json_encode(['code' => 0, 'msg' => '', 'data' => ['src' => asset('storage/' . $path), 'name' => $request->file('file')->getClientOriginalName()]]);
 
     }
+    public function video(UploadRequest $request)
+    {
+
+        $path = $request->file('file')->store('chat/videos', 'public');
+
+        return json_encode(['code' => 0, 'msg' => '', 'data' => ['src' => asset('storage/' . $path), 'name' => $request->file('file')->getClientOriginalName()]]);
+
+    }
     public function fileAudio(UploadRequest $request)
     {
 
