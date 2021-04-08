@@ -8,6 +8,7 @@ use App\Http\Requests\ImRequest;
 use Agent;
 use App\Models\User;
 use App\Models\Group;
+use App\Models\Message;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\GroupResource;
 
@@ -147,6 +148,10 @@ class ImController extends Controller
 
 
         }
+
+        if(config('im.save_message')){//是否支持保存数据到数据库，默认true
+            event(new \App\Events\ImSend($data));
+        }
         return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);
     }
 
@@ -198,6 +203,17 @@ class ImController extends Controller
 
         
         return response()->json(['code'=>0,'msg'=>'','data'=>['state'=>$state ,'group'=>new GroupResource($group)]]);
+
+    }
+
+    //获取聊天记录
+    public function messages(ImRequest $request)
+    {
+        //todo 限制拉自己的聊天记录
+
+        $group_id = $request->input('group_id');
+        $messages = Message::where('group_id',$group_id)->latest('created_at')->paginate($request->limit??30);
+        return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages]]);
 
     }
 }
