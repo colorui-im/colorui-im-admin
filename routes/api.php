@@ -38,7 +38,7 @@ Route::group(['middleware'=>['auth:sanctum']],function () {
         Route::post('bindUid', 'Api\ImController@bindUid')->name('bindUid');
         Route::post('send', 'Api\ImController@send')->name('send');
         Route::post('joinGroup', 'Api\ImController@joinGroup')->name('joinGroup');
-        Route::post('messages', 'Api\ImController@messages')->name('messages');
+        Route::get('messages', 'Api\ImController@messages')->name('messages');
     });
     // Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
     //     Route::post('image', 'Api\UploadController@image')->name('image');
