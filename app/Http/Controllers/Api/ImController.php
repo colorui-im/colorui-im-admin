@@ -150,9 +150,9 @@ class ImController extends Controller
 
         }
 
-        if(config('im.save_message')){//是否支持保存数据到数据库，默认true
-            event(new \App\Events\ImSend($data));
-        }
+        // if(config('im.save_message')){//是否支持保存数据到数据库，默认true
+        //     event(new \App\Events\ImSend($data));
+        // }
         return response()->json(['code'=>0,'msg'=>'','data'=>['message'=>$data]]);
     }
 
@@ -224,8 +224,6 @@ class ImController extends Controller
 
         $messages = MessageResource::collection($messages);
         
-    
-
         return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages,'t_messages'=>$messages]]);
 
     }
