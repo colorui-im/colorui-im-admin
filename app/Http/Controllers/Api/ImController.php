@@ -213,10 +213,20 @@ class ImController extends Controller
         //todo 限制拉自己的聊天记录
 
         $group_id = $request->input('group_id');
-        $messages = Message::where('to_id',$group_id)->latest('created_at')->paginate($request->limit??30);
-        $tMessages = MessageResource::collection($messages);
+        $limitMessage = Message::where('to_id', $group_id)->where('unique_slug', $request->input('unique_slug'))->first();
+        if($limitMessage){
+            $messages = Message::where('to_id',$group_id)->where('id','<',$limitMessage->id)->latest('created_at')->paginate($request->limit??30);
+
+        }else{
+            $messages = Message::where('to_id',$group_id)->latest('created_at')->paginate($request->limit??30);
+        }
+        $messages = $messages->sortBy('id');
+
+        $messages = MessageResource::collection($messages);
         
-        return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages,'t_messages'=>$tMessages]]);
+    
+
+        return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages,'t_messages'=>$messages]]);
 
     }
 }
