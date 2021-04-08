@@ -40,7 +40,7 @@ class ImRequest extends FormRequest
                 //{type/from/to/data/self}
                 $rules = [
                     'type' => ['required','in:friend,group'],
-                    'message_type'=> ['required','in:text,image,audio,file,video,two-click-avatar'],
+                    'message_type'=> ['required','in:text,image,audio,file,video,two-click-avatar,two-click-text'],
                     'to' => ['required'],
                     'data' => ['required']
                 ];
@@ -49,7 +49,7 @@ class ImRequest extends FormRequest
                 //{type/from/to/data/self}
                 $rules = [
                     'type' => ['required','in:friend,group'],
-                    'message_type'=> ['required','in:text,image,audio,file,video,two-click-avatar'],
+                    'message_type'=> ['required','in:text,image,audio,file,video,two-click-avatar,two-click-text'],
                     'to' => ['required'],
                     'data' => ['required']
                 ];
