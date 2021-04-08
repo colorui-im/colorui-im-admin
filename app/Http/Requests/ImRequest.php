@@ -42,7 +42,8 @@ class ImRequest extends FormRequest
                     'type' => ['required','in:friend,group'],
                     'message_type'=> ['required','in:text,image,audio,file,video,two-click-avatar,two-click-text'],
                     'to' => ['required'],
-                    'data' => ['required']
+                    'data' => ['required'],
+                    'unique_slug'=>'required'
                 ];
                 break;
             case 'groupSend':
@@ -51,7 +52,8 @@ class ImRequest extends FormRequest
                     'type' => ['required','in:friend,group'],
                     'message_type'=> ['required','in:text,image,audio,file,video,two-click-avatar,two-click-text'],
                     'to' => ['required'],
-                    'data' => ['required']
+                    'data' => ['required'],
+                    'unique_slug'=>'required'
                 ];
                 break;
             case 'joinGroup':

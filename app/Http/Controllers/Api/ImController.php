@@ -215,6 +215,7 @@ class ImController extends Controller
         $group_id = $request->input('group_id');
         $messages = Message::where('to_id',$group_id)->latest('created_at')->paginate($request->limit??30);
         $tMessages = MessageResource::collection($messages);
+        
         return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages,'t_messages'=>$tMessages]]);
 
     }

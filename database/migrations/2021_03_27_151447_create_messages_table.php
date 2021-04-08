@@ -23,6 +23,7 @@ class CreateMessagesTable extends Migration
             $table->string('type')->nullable()->comment('留作备用');
             $table->string('message_type')->nullable()->comment('消息类型');
             $table->text('data')->nullable()->comment('消息内容是一个json');
+            $table->string('unique_slug')->nullable();
             $table->timestamp('sended_at')->nullable();
             $table->softDeletes();
             $table->timestamps();

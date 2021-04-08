@@ -27,6 +27,7 @@ class Message extends Model
         $message->message_type = $data['message_type'];
         $message->data = $data['data'];
         $message->sended_at = date('Y-m-d H:i:s');
+        $message->unique_slug = $data['unique_slug'];
         $message->save();
 
         LatestMessage::createLatestMessage($message);
