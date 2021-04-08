@@ -11,6 +11,7 @@ use App\Models\Group;
 use App\Models\Message;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\GroupResource;
+use App\Http\Resources\MessageResource;
 
 class ImController extends Controller
 {
@@ -213,7 +214,8 @@ class ImController extends Controller
 
         $group_id = $request->input('group_id');
         $messages = Message::where('to_id',$group_id)->latest('created_at')->paginate($request->limit??30);
-        return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages]]);
+        $tMessages = MessageResource::collection($messages);
+        return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages,'t_messages'=>$tMessages]]);
 
     }
 }
