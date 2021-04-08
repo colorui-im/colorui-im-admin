@@ -212,7 +212,7 @@ class ImController extends Controller
         //todo 限制拉自己的聊天记录
 
         $group_id = $request->input('group_id');
-        $messages = Message::where('group_id',$group_id)->latest('created_at')->paginate($request->limit??30);
+        $messages = Message::where('to_id',$group_id)->latest('created_at')->paginate($request->limit??30);
         return response()->json(['code'=>0,'msg'=>'','data'=>['messages'=>$messages]]);
 
     }
