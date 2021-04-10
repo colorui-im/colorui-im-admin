@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ImSend' => [
             'App\Listeners\SaveMessage',
         ],
+        'App\Events\RandomChatJoining' => [
+            'App\Listeners\NotificationGroupRandomChatUser',
+        ],
     ];
 
     /**
