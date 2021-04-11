@@ -19,7 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('name')->nullable();
             $table->string('avatar')->nullable();
 
-            $table->tinyInteger('type')->default(1)->comment('1 群聊（超过俩人），0好友群聊（俩人聊天）');
+            $table->tinyInteger('type')->default(1)->comment('1 群聊，0好友群聊（俩人聊天）');
             $table->string('user_to_user')->nullable()->comment('两个用户id正序拼接，type 0值');
 
             $table->softDeletes();

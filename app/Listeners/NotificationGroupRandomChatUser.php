@@ -8,6 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Models\RandomChat;
 use App\Models\RandomChatUser;
 use App\Models\Group;
+use App\Http\Resources\RandomChatResource;
 
 class NotificationGroupRandomChatUser
 {
@@ -34,11 +35,11 @@ class NotificationGroupRandomChatUser
         $users = $randomChat->users()->get();
         $data = [
             'type' => 'random_chat_joining',
-            'random_chat_id' => $randomChatId,
-            'count' => $users->count()
+            // 'random_chat_id' => $randomChatId,
+            // 'count' => $users->count()
+            'content' => new RandomChatResource($randomChat)
         ];
 
-        app('gateway')->sendToGroup($randomChat->group_id,$data);//通知加了多少人
 
 
 
@@ -51,22 +52,21 @@ class NotificationGroupRandomChatUser
             $group->users()->sync($users->pluck('id')->toArray());
 
             $data = [
-                'type' => 'random_chat_waiting',//前端收到事件自动跳转
-                'random_chat_id' => $randomChatId,
-                'count' => $users->count(),
-                'group_id' => $group->id,//跳转群组id
-                'time' => 2000,//2秒跳转
+                'type' => 'random_chat_waiting',//前端收到事件自动跳转             
+                 'content' => new RandomChatResource($randomChat)
             ];
             $randomChat->child_group_id = $group->id;
-            $randomChat->status = RandomChat::STATUS_STARTING;
+            $randomChat->status = RandomChat::STATUS_CHATING;
             $randomChat->save();
             $syncData = [];
             foreach ($users as $user){
-                $syncData[$user->id] = ['status'=> RandomChatUser::STATUS_STARTING];
+                $syncData[$user->id] = ['status'=> RandomChatUser::STATUS_CHATING];
             }
             $randomChat->users()->syncWithoutDetaching($syncData);
-
+            $randomChat->load('users');
             app('gateway')->sendToGroup($randomChat->group_id,$data);//通知加满
+        }else{
+            app('gateway')->sendToGroup($randomChat->group_id,$data);//通知加了多少人
         }
 
 

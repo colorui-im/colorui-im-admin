@@ -14,5 +14,5 @@ class RandomChatUser extends Model
     const STATUS_ZERO = 'zero';//初始状态
     const STATUS_JOINING = 'joining';//正在加入
     const STATUS_WAITING = 'waiting';//等待开始
-    const STATUS_STARTING = 'chating';//正在聊天
+    const STATUS_CHATING = 'chating';//正在聊天
 }

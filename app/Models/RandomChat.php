@@ -17,7 +17,13 @@ class RandomChat extends Model
     //有始有终 加入-等待开始-聊天中
     const STATUS_JOINING = 'joining';//正在加入
     const STATUS_WAITING = 'waiting';//等待开始()
-    const STATUS_STARTING = 'chating';//聊天中
+    const STATUS_CHATING = 'chating';//聊天中
+
+    public static $statusMaps = [
+        self::STATUS_JOINING => '加入',
+        self::STATUS_CHATING => '已完成',
+    ];
+
 
     const TYPE_0 = 0;
 

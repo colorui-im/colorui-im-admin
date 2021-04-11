@@ -40,6 +40,12 @@ Route::group(['middleware'=>['auth:sanctum']],function () {
         Route::post('joinGroup', 'Api\ImController@joinGroup')->name('joinGroup');
         Route::get('messages', 'Api\ImController@messages')->name('messages');
     });
+
+    Route::group(['prefix'=>'randomchat','as'=>'randomchat.','middleware'=>[]],function () {
+        Route::get('byGroupId', 'Api\RandomChatController@byGroupId')->name('byGroupId');
+        Route::post('join', 'Api\RandomChatController@join')->name('join');
+       
+    });
     // Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {
     //     Route::post('image', 'Api\UploadController@image')->name('image');
     //     Route::post('file', 'Api\UploadController@file')->name('file');

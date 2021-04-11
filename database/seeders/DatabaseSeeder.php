@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 use App\Models\User;
 use App\Models\Group;
+use App\Models\RandomChat;
 
 
 class DatabaseSeeder extends Seeder
@@ -56,6 +57,16 @@ class DatabaseSeeder extends Seeder
                 }
             }
         }
+
+        $randomChats = RandomChat::factory(10)->create();
+
+        foreach ($randomChats as $k=>$randomChat){
+            $randomChat->group_id = ($k+1);
+            $randomChat->name = '爱智求真';
+            $randomChat->save();
+        }
+
+
     }
 
 }

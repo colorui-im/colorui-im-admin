@@ -26,7 +26,7 @@ class RandomChatRequest extends FormRequest
         $rules = [];
         $method = $this->route()->getActionMethod();
         switch ($method) {
-            case 'init':
+            case 'byGroupId':
                 $rules = [
                     'group_id'=> ['required']
                 ];
