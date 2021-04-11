@@ -25,7 +25,7 @@ class RandomChatFactory extends Factory
             'name' => $this->faker->name,
             'status' => 'joining',
             'extra' => [
-                'count' => mt_rand(2,9)
+                'count' => mt_rand(2,4)
             ]
         ];
     }
