@@ -62,7 +62,20 @@ class DatabaseSeeder extends Seeder
 
         foreach ($randomChats as $k=>$randomChat){
             $randomChat->group_id = ($k+1);
-            $randomChat->name = '爱智求真';
+            $randomChat->name = '爱智求真-兴趣组'.($k+1);
+            $randomChat->save();
+        }
+        $randomChats = RandomChat::factory(10)->create();
+        foreach ($randomChats as $k=>$randomChat){
+            $randomChat->group_id = ($k+1);
+            $randomChat->name = '爱智求真-兴趣组'.($k+11);
+            $randomChat->save();
+        }
+
+        $randomChats = RandomChat::factory(10)->create();
+        foreach ($randomChats as $k=>$randomChat){
+            $randomChat->group_id = ($k+1);
+            $randomChat->name = '爱智求真-兴趣组'.($k+21);
             $randomChat->save();
         }
 

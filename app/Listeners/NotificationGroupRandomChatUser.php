@@ -33,6 +33,7 @@ class NotificationGroupRandomChatUser
         $randomChatId = $event->randomChatId;
         $randomChat = RandomChat::findOrFail($randomChatId);
         $users = $randomChat->users()->get();
+        $randomChat->load('users');
         $data = [
             'type' => 'random_chat_joining',
             // 'random_chat_id' => $randomChatId,

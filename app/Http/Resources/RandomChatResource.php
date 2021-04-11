@@ -26,6 +26,7 @@ class RandomChatResource extends JsonResource
             'users_count' => $this->whenLoaded('users',function(){
                 return $this->users->count();
             }),
+            'users' =>RandomChatUserResource::collection($this->whenLoaded('users'))
         ];
         return parent::toArray($request);
     }

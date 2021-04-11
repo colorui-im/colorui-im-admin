@@ -21,6 +21,7 @@ class RandomChat extends Model
 
     public static $statusMaps = [
         self::STATUS_JOINING => '加入',
+        // self::STATUS_JOINED => '已加入',
         self::STATUS_CHATING => '已完成',
     ];
 
@@ -38,6 +39,7 @@ class RandomChat extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'random_chat_users', 'random_chat_id', 'user_id');
+        return $this->belongsToMany(User::class, 'random_chat_users', 'random_chat_id', 'user_id')->withPivot(['status']);
     }
+
 }
