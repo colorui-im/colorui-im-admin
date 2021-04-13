@@ -119,7 +119,7 @@ class RandomChatController extends Controller
         $modelMessage = Message::where('unique_slug', $message['unique_slug'])->first();
 
         if(!$modelMessage){
-            return response()->json(['code'=>1,'msg'=>'请在兴趣小组里模拟','data'=>[]]);
+            return response()->json(['code'=>1,'msg'=>'请在右上角，兴趣小组里模拟','data'=>[]]);
         }
 
         if($modelMessage->message_type!='random-chat-apply'){
