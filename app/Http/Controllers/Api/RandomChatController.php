@@ -116,7 +116,11 @@ class RandomChatController extends Controller
         $message = $request->message;
         $type = $request->type;//agree refuse waiver
 
-        $modelMessage = Message::where('unique_slug', $message['unique_slug'])->firstOrFail();
+        $modelMessage = Message::where('unique_slug', $message['unique_slug'])->first();
+
+        if(!$modelMessage){
+            return response()->json(['code'=>1,'msg'=>'请在兴趣小组里模拟','data'=>[]]);
+        }
 
         if($modelMessage->message_type!='random-chat-apply'){
             return response()->json(['code'=>1,'msg'=>'消息类型不正确','data'=>[]]);
