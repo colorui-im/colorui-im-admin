@@ -36,6 +36,17 @@ class RandomChatRequest extends FormRequest
                     'random_chat_id'=> ['required']
                 ];
                 break;
+            case 'apply':
+                $rules = [
+                    'random_chat_id'=> ['required']
+                ];
+                break;
+            case 'vote':
+                $rules = [
+                    'message'=> ['required'],
+                    'type'=> ['required','in:agree,refuse,waiver'],
+                ];
+                break;
          }
          return $rules;
 

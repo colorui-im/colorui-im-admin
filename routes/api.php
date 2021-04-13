@@ -43,7 +43,9 @@ Route::group(['middleware'=>['auth:sanctum']],function () {
 
     Route::group(['prefix'=>'randomchat','as'=>'randomchat.','middleware'=>[]],function () {
         Route::get('byGroupId', 'Api\RandomChatController@byGroupId')->name('byGroupId');
-        Route::post('join', 'Api\RandomChatController@join')->name('join');
+        Route::post('join', 'Api\RandomChatController@join')->name('join');//主动加入
+        Route::post('apply', 'Api\RandomChatController@apply')->name('apply');//申请加入
+        Route::post('vote', 'Api\RandomChatController@vote')->name('vote');//申请加入
        
     });
     // Route::group(['prefix'=>'upload','as'=>'upload.','middleware'=>[]],function () {

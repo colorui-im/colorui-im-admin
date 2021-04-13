@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.5",
         "predis/predis": "^1.1",
         "ramsey/uuid": "^4.1",
+        "workerman/gateway-worker": "^3.0",
         "workerman/gatewayclient": "^3.0"
     },
     "require-dev": {

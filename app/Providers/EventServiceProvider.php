@@ -21,8 +21,11 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ImSend' => [
             'App\Listeners\SaveMessage',
         ],
-        'App\Events\RandomChatJoining' => [
+        'App\Events\RandomChatJoining' => [//加入兴趣小组
             'App\Listeners\NotificationGroupRandomChatUser',
+        ],
+        'App\Events\RandomChatApply' => [//兴趣小组满了之后，申请加入兴趣小组，通知兴趣小组的成员，需要兴趣小组成员的一半同意才可以加入
+            'App\Listeners\NotificationGroupRandomChatUserJoined',
         ],
     ];
 

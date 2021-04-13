@@ -19,6 +19,7 @@ class CreateRandomChatUsersTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('group_id')->nullable()->comment('冗余字段');
             $table->string('status')->nullable()->comment('同步random_chats中的status');
+            $table->tinyInteger('type')->default(0)->comment('0 主动加入的 1申请加入的 2主动拉入的');
             $table->timestamps();
         });
     }
