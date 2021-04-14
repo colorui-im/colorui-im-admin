@@ -17,7 +17,9 @@
 * 支持pc,H5，小程序 和 apk ，桌面版，ios 理论上应该也可以，但太麻烦，有心者可研究
 
 [demo](https://jc91715.top/im)
+
 手机扫码体验
+
 ![1](https://jc91715.top/storage/app/blog/3vCEkfFjmS.png)
 
 ## 快速开始
